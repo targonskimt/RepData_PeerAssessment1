@@ -1,6 +1,8 @@
 ---
 title: Peer Assessment 1 
-output: html_document
+output: 
+     html_document:  
+       keep_md: true  
 
 ---
 
@@ -8,7 +10,6 @@ Set up. Will be using the ggplot2 package for plotting. https://cran.r-project.o
 ```{r  echo = TRUE }
 library(ggplot2)
 echo = TRUE
-keep_md = TRUE
 ```
 
 ## Loading and preprocessing the data
@@ -37,7 +38,7 @@ NumberOfSteps <- aggregate(myData$steps, list(myData$date), FUN=sum, na.rm=TRUE)
 ```
 
 ### 2. If you do not understand the difference between a histogram and a barplot, research the difference between them. Make a histogram of the total number of steps taken each day
-```{r  echo = TRUE}
+```{r  fig.cap="F1.StepsperDayFrequency"}
 qplot(NumberOfSteps, main="Steps per Day Frequency", xlab="Steps per Day", ylab="Frequency", binwidth=300)
 ```
 
@@ -54,7 +55,9 @@ median(NumberOfSteps)
 ### 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 ```{r  echo = TRUE}
 myAverageSteps <- aggregate(myData$steps, list(interval = myData$interval), FUN=mean, nr.rm=TRUE)
+```
 
+```{r  fig.cap="F2.TimeSeriesof5-minuteIntervals"}
 ggplot(myAverageSteps, aes(myAverageSteps$interval, myAverageSteps$x)) + geom_line() + labs(title="Time Series of 5-minute Intervals", x="Intervals", y="Average Number of Steps")
 ```
 
@@ -97,6 +100,9 @@ sum(is.na(myFullData))
 ### 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 ```{r  echo = TRUE}
 myStepsTaken <- aggregate(myFullData$steps, list(myFullData$date), FUN=sum, na.rm=TRUE)$x
+```
+
+```{r fig.cap="F3.StepsperDayFrequency"}
 qplot(myStepsTaken, main="Steps per Day Frequency", xlab="Steps per Day", ylab="Frequency", binwidth=300)
 ```
 
@@ -133,14 +139,14 @@ for(i in 1:nrow(myWeekData))
         myWeekData$DayType[i] <- "Weekend"
       }
   }
-
-
-
 ```
+
 ### 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 ```{r  echo = TRUE}
 myAverageDateType <- aggregate(steps ~ interval + DayType, myWeekData, FUN=mean, na.rm=TRUE)
+```
 
+```{r fig.cap="F4.TimeSeriesof5-minuteIntervalssplitbyDayType"}
 ggplot(myAverageDateType, aes(interval, steps)) + geom_line() + facet_grid(DayType ~.) + labs(title="Time Series of 5-minute Intervals split by Day Type", x="Intervals", y="Average Number of Steps")
 ```
 
