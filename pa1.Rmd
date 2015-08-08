@@ -1,12 +1,14 @@
 ---
 title: Peer Assessment 1 
 output: html_document
+
 ---
 
 Set up. Will be using the ggplot2 package for plotting. https://cran.r-project.org/web/packages/ggplot2/index.html
 ```{r  echo = TRUE }
 library(ggplot2)
 echo = TRUE
+keep_md = TRUE
 ```
 
 ## Loading and preprocessing the data
